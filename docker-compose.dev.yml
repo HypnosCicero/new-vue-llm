@@ -1,0 +1,27 @@
+version: '0.1'
+
+networks:
+  default:
+    name: fullstack-new
+
+services:
+  pwa:
+    build:
+      context: .
+      target: development
+    volumes:
+      - .:/app:z
+      - /app/node_modules
+    ports:
+      - 4200:4200
+    command:
+      - npm
+      - run
+      - start
+      - --
+      - '--configuration=${CONFIG:-development}'
+      - --host=0.0.0.0
+      - --disable-host-check
+
+    networks:
+      - default
